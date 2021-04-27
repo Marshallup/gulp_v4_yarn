@@ -1,0 +1,29 @@
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  position: relative;
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+}
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+  margin: 0;
+}
+// ДЛЯ ОТКЛЮЧЕНИЕ ОКРАШИВАНИЯ ИНПУТОВ ПРИ АВТОЗАПОЛНЕНИИ
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
