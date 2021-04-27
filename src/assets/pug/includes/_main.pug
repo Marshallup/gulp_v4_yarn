@@ -1,2 +1,62 @@
-h2 Main
+section.calculator
+  h2.calculator__title Калькулятор
+  form.calculator-form
+    .calculator-form-two-card.calculator-form-header
+      .calculator-form-card.calculator-form-side.calculator-form-scantling
+        h4.calculator-form-card__title Размеры изделия
+        .calculator-form-card-body
+          .calculator-form-scantling-input
+            label.calculator-form-scantling-input__label Ширина:
+            .calculator-form-scantling-input-item
+              span.calculator-form-scantling-input-item__prefix-postfix.calculator-form-scantling-input-item__prefix от 20 см
+              .calculator-form-scantling-input-item__elem-wrap
+                input(type="text").calculator-form-scantling-input-item__elem
+                span.calculator-form-scantling-input-item__prefix-postfix.calculator-form-scantling-input-item__elem-postfix см
+              span.calculator-form-scantling-input-item__prefix-postfix.calculator-form-scantling-input-item__postfix до 180 см
+          .calculator-form-scantling-input
+            label.calculator-form-scantling-input__label Высота:
+            .calculator-form-scantling-input-item
+              span.calculator-form-scantling-input-item__prefix-postfix.calculator-form-scantling-input-item__prefix от 20 см
+              .calculator-form-scantling-input-item__elem-wrap
+                input(type="text").calculator-form-scantling-input-item__elem
+                span.calculator-form-scantling-input-item__prefix-postfix.calculator-form-scantling-input-item__elem-postfix см
+              span.calculator-form-scantling-input-item__prefix-postfix.calculator-form-scantling-input-item__postfix до 240 см
+      .calculator-form-card.calculator-form-side.calculator-form-color
+        h4.calculator-form-card__title Выбор цвета фурнитуры
+        .calculator-form-card-body
+          .calculator-form-color-slider
+            .calculator-form-color-slider__item
+    .calculator-form-two-card
+      .calculator-form-card
+        h4.calculator-form-card__title Тип управления
+        .calculator-form-card-body
+          .calculator-form-card-checkboxes
+            .calculator-form-card-checkbox-wrap
+              .calculator-form-card-checkbox
+                input(type="checkbox").calculator-form-card-checkbox__item#manual
+                span.calculator-form-card-checkbox__visible
+              label(for="manual").calculator-form-card-checkbox__label Ручное
+            .calculator-form-card-checkbox-wrap
+              .calculator-form-card-checkbox
+                input(type="checkbox").calculator-form-card-checkbox__item#electro
+                span.calculator-form-card-checkbox__visible
+              label(for="electro").calculator-form-card-checkbox__label Электропривод
+      .calculator-form-card
+        h4.calculator-form-card__title Способ монтажа
+        .calculator-form-card-body
+          .calculator-form-card-checkboxes
+            .calculator-form-card-checkbox-wrap
+              .calculator-form-card-checkbox
+                input(type="checkbox").calculator-form-card-checkbox__item#manual
+                span.calculator-form-card-checkbox__visible
+              label(for="manual").calculator-form-card-checkbox__label Скотч
+            .calculator-form-card-checkbox-wrap
+              .calculator-form-card-checkbox
+                input(type="checkbox").calculator-form-card-checkbox__item#electro
+                span.calculator-form-card-checkbox__visible
+              label(for="electro").calculator-form-card-checkbox__label Со сверлением рамы
+
+
+
+
 

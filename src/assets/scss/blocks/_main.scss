@@ -1,0 +1,93 @@
+.calculator {
+  margin: 0 auto;
+  max-width: 870px;
+  font-family: 'Gotham Pro', sans-serif;
+  box-sizing: border-box;
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+  &__title {
+    margin-bottom: 27px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    color: #222222;
+  }
+  &-form {
+    // &-header {
+      // display: flex;
+      // justify-content: space-between;
+    // }
+    &-card {
+      margin: 12px 0;
+      padding: 35px 40px 40px 40px;
+      border: 1.5px solid #3A8BC2;
+      border-radius: 10px;
+      &__title {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        color: #222222;
+        margin: 0 0 25px 0;
+      }
+    }
+    &-two-card {
+      display: flex;
+      justify-content: space-between;
+      .calculator-form-card {
+        flex-basis: 49%;
+      }
+    }
+    // &-side {
+    //   &-body {
+    //     // .calculator-form-scantling-input:last-child {
+    //       // margin-bottom: 20px;
+    //     // }
+    //   }
+    // }
+    &-scantling {
+      padding: 35px 50px 50px 40px;
+      &-input {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &:first-child {
+          margin-bottom: 20px;
+        }
+        // &__label {
+          // margin-right: 30px;
+        // }
+        &-item {
+          display: flex;
+          align-items: center;
+          &__prefix-postfix {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            color: #7B7B7B;
+          }
+          &__elem {
+            outline: none;
+            padding: 0 25px 0 10px;
+            margin: 0 8px;
+            max-width: 85px;
+            height: 32px;
+            border: 1px solid #3A8BC2;
+            border-radius: 5px;
+            &-postfix {
+              top: 50%;
+              right: 15px;
+              transform: translateY(-50%);
+            }
+            &-wrap {
+              position: relative;
+            }
+            &-postfix {
+              position: absolute;
+            }
+          }
+        }
+      }
+    }
+  }
+}
