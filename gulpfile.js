@@ -9,18 +9,18 @@ const { src, dest, task, series, watch, parallel } = require("gulp"),
   sourcemaps = require("gulp-sourcemaps"),
   plumber = require("gulp-plumber"),
   pug = require("gulp-pug"),
-  // htmlmin = require("gulp-htmlmin"),
   formatHtml = require('gulp-format-html'),
   rename = require("gulp-rename"),
   babel = require("gulp-babel"),
   rigger = require("gulp-rigger"),
   uglify = require("gulp-uglify-es").default,
-  eslint = require('gulp-eslint'),
-  // cache = require("gulp-cache"),
   imagemin = require("gulp-imagemin"),
   imageminJpegRecompress = require("imagemin-jpeg-recompress"),
   pngquant = require("imagemin-pngquant"),
   imageminJpegtran = require("imagemin-jpegtran"),
+  // eslint = require('gulp-eslint'),
+  // cache = require("gulp-cache"),
+  // htmlmin = require("gulp-htmlmin"),
   // imageminWebp = require("imagemin-webp"),
   mode = require("gulp-mode")();
 
@@ -58,6 +58,7 @@ const path = {
   watch: {
     html: "src/assets/**/*.pug",
     js: "src/assets/js/**/*.js",
+    apart: "./src/assets/js/apart/**/*.js",
     css: "src/assets/scss/**/*.scss",
     fonts: "src/assets/fonts/*.*",
     images: "src/assets/img/**/*.{jpg,png,svg,gif,ico}",
@@ -185,9 +186,9 @@ task("styles", () => {
 task("js", () => {
   if (isDev) {
     return src(path.src.js)
-      .pipe(eslint())
+      // .pipe(eslint())
       .pipe(plumber())
-      .pipe(eslint.format())
+      // .pipe(eslint.format())
       .pipe(sourcemaps.init())
       .pipe(
         babel({
@@ -240,6 +241,7 @@ task("watch", () => {
   watch(path.watch.css, series("styles"));
   watch(path.watch.fonts, series("fonts"));
   watch(path.watch.js, series("js"));
+  watch(path.watch.apart, series("apart"));
   watch(path.watch.images, series("images"));
   watch(path.watch.html, series("html"));
 });
