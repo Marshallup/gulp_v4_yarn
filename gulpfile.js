@@ -43,23 +43,30 @@ const path = {
   build: {
     html: "dist/",
     js: "dist/assets/js/",
+    includeJs: "dist/assets/js/include/",
+    vendorJs: "dist/assets/js/vendor/",
     css: "dist/assets/css/",
+    includeCss: "dist/assets/css/include/",
     fonts: "dist/assets/fonts/",
     images: "dist/assets/img/",
   },
   src: {
     html: "src/assets/pug/pages/*.pug",
     js: "src/assets/js/*.js",
-    apart: "./src/assets/js/apart/*.js",
+    includeJs: "./src/assets/js/include/**/*.js",
+    vendorJs: "./src/assets/js/vendor/**/*.js",
     css: "src/assets/scss/style.scss",
+    includeCss: "src/assets/scss/includes/**/*.scss",
     fonts: "src/assets/fonts/*.*",
     images: "src/assets/img/**/*.{jpg,png,svg,gif,ico}",
   },
   watch: {
     html: "src/assets/**/*.pug",
     js: "src/assets/js/**/*.js",
-    apart: "./src/assets/js/apart/**/*.js",
+    includeJs: "./src/assets/js/include/**/*.js",
+    vendorJs: "./src/assets/js/vendor/**/*.js",
     css: "src/assets/scss/**/*.scss",
+    includeCss: "src/assets/scss/includes/**/*.scss",
     fonts: "src/assets/fonts/*.*",
     images: "src/assets/img/**/*.{jpg,png,svg,gif,ico}",
   },
@@ -183,6 +190,39 @@ task("styles", () => {
   }
 });
 
+task("includeStyles", () => {
+  if (isDev) {
+    return src(path.src.includeCss)
+      .pipe(plumber())
+      .pipe(sourcemaps.init())
+      .pipe(sass().on("error", sass.logError))
+      .pipe(postcss(require("./postcss.config")))
+      .pipe(sourcemaps.write())
+      .pipe(
+        rename({
+          suffix: ".min",
+          extname: ".css",
+        })
+      )
+      .pipe(dest(path.build.includeCss))
+      .pipe(reload({ stream: true }));
+  } else {
+    return src(path.src.includeCss)
+      .pipe(sass().on("error", sass.logError))
+      .pipe(postcss(require("./postcss.config")))
+      .pipe(dest(path.build.css))
+      .pipe(minifyCss())
+      .pipe(
+        rename({
+          suffix: ".min",
+          extname: ".css",
+        })
+      )
+      .pipe(dest(path.build.includeCss))
+      .pipe(reload({ stream: true }));
+  }
+});
+
 task("js", () => {
   if (isDev) {
     return src(path.src.js)
@@ -229,19 +269,28 @@ task("fonts", () => {
   return src(path.src.fonts).pipe(dest(path.build.fonts));
 });
 
-task("apart", () => {
-  return src(path.src.apart)
+task("includeJs", () => {
+  return src(path.src.includeJs)
     .pipe(plumber())
     .pipe(uglify())
-    .pipe(dest(path.build.js))
+    .pipe(dest(path.build.includeJs))
+    .pipe(browserSync.stream());
+});
+task("vendorJs", () => {
+  return src(path.src.vendorJs)
+    .pipe(plumber())
+    .pipe(uglify())
+    .pipe(dest(path.build.vendorJs))
     .pipe(browserSync.stream());
 });
 
 task("watch", () => {
   watch(path.watch.css, series("styles"));
+  watch(path.watch.includeCss, series("includeStyles"));
   watch(path.watch.fonts, series("fonts"));
   watch(path.watch.js, series("js"));
-  watch(path.watch.apart, series("apart"));
+  watch(path.watch.includeJs, series("includeJs"));
+  watch(path.watch.vendorJs, series("vendorJs"));
   watch(path.watch.images, series("images"));
   watch(path.watch.html, series("html"));
 });
@@ -250,11 +299,11 @@ task(
   "default",
   series(
     "clean",
-    parallel("styles", "fonts", "html", "images", "js", "apart"),
+    parallel("styles", "includeStyles", "fonts", "html", "images", "js", "includeJs", "vendorJs"),
     parallel("watch", "server")
   )
 );
 task(
   "build",
-  series("clean", parallel("styles", "fonts", "images", "html", "js", "apart"))
+  series("clean", parallel("styles", "includeStyles", "fonts", "images", "html", "js", "includeJs", "vendorJs"))
 );
