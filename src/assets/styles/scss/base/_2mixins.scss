@@ -1,3 +1,14 @@
+@mixin font-face($name, $file, $weight: 400, $style: normal, $typeExt: 'woff2') {
+	@font-face {
+		font-family: "#{$name}";
+		src: local("#{$file}"),
+		url('../fonts/#{$file}.#{$typeExt}') format('#{$typeExt}');
+		font-weight: $weight;
+		font-style: $style;
+		font-display: swap;
+	}
+}
+
 // SOME EXTENDS
 // @font-face {
 //   font-family: "Myriad Pro";
