@@ -1,7 +1,6 @@
 const { src, dest } = require("gulp"),
 path = require('../paths'),
 modeProd = require('../gulp_mode')(),
-rootPath = require('root-path'),
 reload = require("browser-sync").create().reload,
 sourcemaps = require("gulp-sourcemaps"),
 plumber = require("gulp-plumber");
@@ -16,8 +15,6 @@ module.exports = function vendorStyles() {
       .pipe(reload({ stream: true }));
   } else {
     return src(path.src.vendorStyles)
-      .pipe(dest(path.build.css))
-      .pipe(dest(path.build.vendorStyles))
-      .pipe(reload({ stream: true }));
+      .pipe(dest(path.build.vendorStyles));
   }
 };

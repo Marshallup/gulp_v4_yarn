@@ -7,5 +7,6 @@ module.exports = function server() {
         },
         watch: true,
         open: false,
+        notify: false,
     });
 };

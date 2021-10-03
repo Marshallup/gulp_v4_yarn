@@ -1,5 +1,5 @@
 "use strict";
-const { src, dest, task, series, watch, parallel } = require("gulp"),
+const { task, series, parallel } = require("gulp"),
   requireDir = require('require-dir'),
   modules = requireDir('./gulp_modules', { recurse: true });
 

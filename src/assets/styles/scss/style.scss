@@ -1,9 +1,3 @@
 @import "normalize.css";
 @import "base/*";
-@import "elements/*";
-@import "blocks/*";
-
-h1 {
-    font-family: "Roboto-Black";
-    font-weight: 700;
-}
+@import "includes/*";

@@ -2,6 +2,7 @@ const { src, dest } = require("gulp"),
 path = require('../paths'),
 modeProd = require('../gulp_mode')(),
 browserSync = require("browser-sync"),
+gulpif = require('gulp-if'),
 sourcemaps = require("gulp-sourcemaps"),
 babel = require("gulp-babel"),
 rigger = require("gulp-rigger"),
@@ -12,45 +13,37 @@ plumber = require("gulp-plumber");
 
 module.exports = function js() {
 
-  if (!modeProd) {
-    return src(path.src.js)
-    .pipe(plumber())
-    .pipe(sourcemaps.init())
+  return src(path.src.js)
+    .pipe(gulpif(!modeProd, plumber()))
+    .pipe(gulpif(!modeProd, sourcemaps.init()))
     .pipe(
       babel({
         presets: ["@babel/env"],
       })
     )
     .pipe(rigger())
-    .pipe(
+    .pipe(gulpif(!modeProd,
       rename({
         suffix: ".min",
         extname: ".js",
       })
-    )
-    .pipe(sourcemaps.write())
-    .pipe(dest(path.build.js))
-    .pipe(browserSync.stream());
-  } else {
-    return src(path.src.js)
-    .pipe(
-      babel({
-        presets: ["@babel/env"],
-      })
-    )
-    .pipe(rigger())
-    .pipe(dest(path.build.js))
-    .pipe(uglify())
-    .pipe(
+    ))
+    .pipe(gulpif(!modeProd, sourcemaps.write()))
+    .pipe(gulpif(!modeProd, dest(path.build.js)))
+    .pipe(gulpif(!modeProd, browserSync.stream()))
+    .pipe(gulpif(modeProd, dest(path.build.js)))
+    .pipe(gulpif(modeProd, uglify()))
+    .pipe(gulpif(modeProd,
       rename({
         suffix: ".min",
         extname: ".js",
       })
-    )
-    .pipe(dest(path.build.js))
-    .pipe(size({
-      showFiles: true,
-      title: 'Общие Javascript файлы: --===--',
-    }));
-  }
+    ))
+    .pipe(gulpif(modeProd, dest(path.build.js)))
+    .pipe(gulpif(modeProd,
+      size({
+        showFiles: true,
+        title: 'Общие Javascript файлы: --===--',
+      })
+    ))
 };
