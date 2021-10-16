@@ -7,9 +7,9 @@ plumber = require("gulp-plumber"),
 uglify = require("gulp-uglify-es").default;
 
 module.exports = function vendorJs() {
-    return src(path.src.pagesJs)
+    return src(path.src.vendorJs)
     .pipe(gulpif(!modeProd, plumber()))
     .pipe(uglify())
-    .pipe(dest(path.build.pagesJs))
+    .pipe(dest(path.build.vendorJs))
     .pipe(gulpif(!modeProd, browserSync.stream()));
 };
