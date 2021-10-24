@@ -1,4 +1,24 @@
 @mixin font-face($name, $file, $weight: 400, $style: normal, $typeExt: 'woff2') {
+	// SOME EXTENDS
+	// @font-face {
+	//   font-family: "Myriad Pro";
+	//   src: url("../fonts/Myriad_Pro-2_bold.eot");
+	//   src: local("Myriad Pro"), local("../fonts/Myriad_Pro-2_bold"),
+	//     url("../fonts/Myriad_Pro-2_bold.woff") format("woff"),
+	//     url("../fonts/Myriad_Pro-2_bold.ttf") format("truetype");
+	//   font-weight: 400;
+	//   font-style: normal;
+	//   font-display: swap;
+	// }
+	//------------------------------------
+	// ONE EXTENDS
+	// @font-face {
+	//   font-family: 'Lovelace';
+	//   src: url('../fonts/Lovelace-ExtraLight.woff2') format('woff2');
+	//   font-weight: 200;
+	//   font-style: normal;
+	//   font-display: swap;
+	// }
 	@font-face {
 		font-family: "#{$name}";
 		src: local("#{$file}"),
@@ -8,24 +28,9 @@
 		font-display: swap;
 	}
 }
-
-// SOME EXTENDS
-// @font-face {
-//   font-family: "Myriad Pro";
-//   src: url("../fonts/Myriad_Pro-2_bold.eot");
-//   src: local("Myriad Pro"), local("../fonts/Myriad_Pro-2_bold"),
-//     url("../fonts/Myriad_Pro-2_bold.woff") format("woff"),
-//     url("../fonts/Myriad_Pro-2_bold.ttf") format("truetype");
-//   font-weight: 400;
-//   font-style: normal;
-//   font-display: swap;
-// }
-//------------------------------------
-// ONE EXTENDS
-// @font-face {
-//   font-family: 'Lovelace';
-//   src: url('../fonts/Lovelace-ExtraLight.woff2') format('woff2');
-//   font-weight: 200;
-//   font-style: normal;
-//   font-display: swap;
-// }
+@function rem($pixels, $context: $htmlFontSize) {
+	@return #{$pixels/$context}rem;
+}
+@function px($number) {
+	@return #{$number}px;
+}
